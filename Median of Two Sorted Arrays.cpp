@@ -17,6 +17,8 @@ public:
         }
     }
     
+    //search Kth large element in two sorted array, the key point is to compare A[m/2] and B[n/2] 
+    //and compare K and n/2+m/2+1 
     int Search(int a[], int n, int b[], int m, int k)  
     {  
             //assert(a && b);   
