@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s)
+{
+	int count = 0, max = 0;
+    int alphabet[256];
+    memset(alphabet, -1, 256*sizeof(int));
+//use alphabet to record the position of a charactor, in order to reduce the complexity for searching for 
+//previous duplicated charactor
+
+    for(unsigned int i = 0; i < s.size(); i++)
+    {
+    	if(-1 == alphabet[s[i]])
+    	{
+    		count++;
+    		alphabet[s[i]] = i;
+    	}
+    	else
+    	{
+    		i = alphabet[s[i]];
+    		memset(alphabet, -1, 256*sizeof(int));
+
+    		if(count > max)
+    			max = count;
+
+    		count = 0;
+    	}
+    }
+
+	return (max > count)?(max):(count);
+}
+};
