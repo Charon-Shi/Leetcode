@@ -1,0 +1,36 @@
+class Solution {
+public:
+    string convert(string s, int nRows)
+{
+	int length = s.size(), temp = 0, temp2 = 0, temp3 = 0;
+	string result;
+
+	if(length <= nRows || nRows == 1)
+		return s;
+
+	for(int i = 0; i < nRows; i++)
+	{
+		temp = i;
+		while(temp < length)
+		{
+			temp2 = temp % (2*nRows-2);
+			temp3 = temp / (2*nRows-2);
+			if(i == nRows-1)
+				temp2 = 0;
+
+			if(temp2 < nRows)
+			{
+				result.push_back(s[temp]);
+				temp += (2*nRows-2-temp2*2);
+			}
+			else
+			{
+				result.push_back(s[temp]);
+				temp = i + (temp3+1) * (2*nRows-2);
+			}
+		}
+	}
+
+	return result;
+}
+};
