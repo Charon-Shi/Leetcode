@@ -9,3 +9,4 @@ public:
         return (*s==*p || *p=='.') && isMatch(s+1, p+1);
 }
 };
+// This is the best solution I've even seen. 
