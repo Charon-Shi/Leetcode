@@ -1,0 +1,43 @@
+class Solution {
+struct Node
+	{
+		int height;
+		int index;
+
+		Node(int i, int j):height(i), index(j){}
+
+		Node(){ height = index = 0; }
+
+		bool operator < (const struct Node &a) const
+		{
+			return height < a.height;
+		}
+	};
+
+public:
+	int maxArea(vector<int> &height)
+	{
+		int size = height.size();
+		int result = 0;
+		vector<Node> Container(size);
+
+		for(int i = 0; i < size; i++)
+		{
+			Container[i].height = height[i];
+			Container[i].index = i;
+		}
+
+		sort(Container.begin(), Container.end());
+
+		int end = Container[size-1].index, begin = end;
+		for(int i = size-2; i >= 0; i--)
+		{
+			begin = min(begin, Container[i].index);
+			end = max(end, Container[i].index);
+			result = max(max((Container[i].index - begin)*Container[i].height,
+					(end - Container[i].index)*Container[i].height), result);
+		}
+
+		return result;
+	}
+};
