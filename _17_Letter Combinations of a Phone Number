@@ -1,0 +1,35 @@
+class Solution {
+public:
+map<char, string> hash_table;
+
+	void find(vector<string> &result, string digits, string temp, unsigned int pos)
+	{
+		string str = hash_table[digits[pos]];
+
+		if(pos < digits.size())
+		{
+			for(unsigned int i = 0; i < str.size(); i++)
+				find(result, digits, temp+str[i], pos+1);
+		}
+		else
+			result.push_back(temp);
+	}
+
+    vector<string> letterCombinations(string digits)
+	{
+    	hash_table.insert(pair<char, string>('2', "abc"));
+    	hash_table.insert(pair<char, string>('3', "def"));
+    	hash_table.insert(pair<char, string>('4', "ghi"));
+    	hash_table.insert(pair<char, string>('5', "jkl"));
+    	hash_table.insert(pair<char, string>('6', "mno"));
+    	hash_table.insert(pair<char, string>('7', "pqrs"));
+    	hash_table.insert(pair<char, string>('8', "tuv"));
+    	hash_table.insert(pair<char, string>('9', "wxyz"));
+
+    	vector<string> result;
+    	if(digits.size() == 0) return result;
+    	find(result, digits, "", 0);
+
+    	return result;
+    }
+};
