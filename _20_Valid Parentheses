@@ -1,0 +1,27 @@
+class Solution {
+public:
+    bool isValid(string s)
+    {
+        stack<char> Stack;
+        map<char, char> table;
+
+        table.insert(pair<char, char>(')', '('));
+        table.insert(pair<char, char>('}', '{'));
+        table.insert(pair<char, char>(']', '['));
+
+        if(s.size() == 0) return true;
+
+        for(unsigned int i = 0; i < s.size(); i++)
+        {
+        	if(s[i] == '(' || s[i] == '{' || s[i] == '[') Stack.push(s[i]);
+        	else
+        	{
+        		if(!Stack.empty() && Stack.top() == table[s[i]]) Stack.pop();
+        		else return false;
+        	}
+        }
+
+        if(Stack.empty()) return true;
+        else return false;
+    }
+};
