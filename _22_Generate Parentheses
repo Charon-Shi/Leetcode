@@ -1,0 +1,28 @@
+class Solution {
+public:
+	void find(vector<string> &result, unsigned int n, string temp,
+			unsigned int left_bracket, unsigned int left_minus_right)
+	{
+		if(temp.size() < n && left_bracket == n/2)
+			find(result, n, temp+")", left_bracket, left_minus_right-1);
+		else if(temp.size() < n && left_bracket < n/2 &&  left_minus_right == 0)
+			find(result, n, temp+"(", left_bracket+1, left_minus_right+1);
+		else if(temp.size() < n && left_bracket < n/2 &&  left_minus_right > 0)
+		{
+			find(result, n, temp+"(", left_bracket+1, left_minus_right+1);
+			find(result, n, temp+")", left_bracket, left_minus_right-1);
+		}
+		else if(temp.size() == n)
+			result.push_back(temp);
+	}
+
+    vector<string> generateParenthesis(int n)
+	{
+    	vector<string> result;
+
+    	if(n == 0) return result;
+        find(result, n*2, "", 0, 0);
+
+        return result;
+    }
+};
