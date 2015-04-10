@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int strStr(char *haystack, char *needle)
+    {
+        if(haystack[0] == '\0' && needle[0] == '\0') return 0;
+        if(haystack[0] != '\0' && needle[0] == '\0') return 0;
+        if(haystack[0] == '\0' && needle[0] != '\0') return -1;
+
+    	int i = 0, j, k;
+        while(haystack[i] != '\0')
+        {
+        	j = 0, k = i;
+        	while(needle[j] != '\0' && haystack[k] != '\0' && haystack[k] == needle[j]) { k++, j++; }
+
+        	if(needle[j] != '\0' && haystack[k] != '\0')
+        		i++;
+        	else if(needle[j] != '\0' && haystack[k] == '\0')
+        	    return -1;
+        	else
+        		return i;
+        }
+
+        return -1;
+    }
+};
