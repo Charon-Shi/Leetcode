@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int removeDuplicates(int A[], int n)
+    {
+    	if(n <= 1) return n;
+
+        int current = 1, duplicate = 0, num = 1, sub = 1;
+        while(current < n)
+        {
+        	while(current < n && A[current] == A[current-1])	{ current++; duplicate++; }
+        	if(duplicate == 0)	{ num++; A[sub++] = A[current]; current++; }
+        	else if(duplicate != 0 && current < n)
+        	{
+        		A[sub++] = A[current];
+        		current++;
+        		duplicate = 0;
+        		num++;
+        	}
+        }
+
+        return num;
+    }
+};
