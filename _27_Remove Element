@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int removeElement(int A[], int n, int elem)
+    {
+    	int sub = 0, current = 0, num = 0;
+    	while(current < n)
+    	{
+    		if(A[current] != elem) { A[sub++] = A[current]; num++; }
+    		current++;
+    	}
+    	return num;
+    }
+};
