@@ -1,0 +1,47 @@
+class Solution {
+public:
+    void nextPermutation(vector<int> &num)
+    {
+    	if(num.size() <= 1)	return;
+
+    	int temp, i = num.size()-2;
+    	map<int, int> hash_map;
+    	unsigned int index;
+
+    	hash_map.insert(pair<int, int>(num[i+1], i+1));
+    	while(num[i] >= num[i+1] && i >= 0)
+    	{
+    		hash_map.insert(pair<int, int>(num[i], i));
+    		i--;
+    	}
+
+    	if(i != -1)
+    	{
+    		map<int, int>::iterator t = hash_map.begin();
+    		for(; t != hash_map.end(); t++) cout << t->first << " " << t->second << endl;
+
+			map<int, int>::reverse_iterator it = hash_map.rbegin();
+			for(; it != hash_map.rend(); it++)
+			{
+				if(num[i] >= it->first)
+					break;
+			}
+
+			it--;
+			index = it->second;
+			temp = it->first;
+
+    		temp = num[index];
+    		num[index] = num[i];
+    		num[i] = temp;
+
+    		sort(num.begin()+i+1, num.end());
+    		vector<int>::iterator k = num.begin();
+    		for(; k != num.end(); k++) cout << *k << endl;
+    	}
+    	else
+    	{
+    		sort(num.begin(), num.end());
+    	}
+    }
+};
