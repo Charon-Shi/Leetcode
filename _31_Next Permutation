@@ -17,9 +17,6 @@ public:
 
     	if(i != -1)
     	{
-    		map<int, int>::iterator t = hash_map.begin();
-    		for(; t != hash_map.end(); t++) cout << t->first << " " << t->second << endl;
-
 			map<int, int>::reverse_iterator it = hash_map.rbegin();
 			for(; it != hash_map.rend(); it++)
 			{
@@ -36,8 +33,6 @@ public:
     		num[i] = temp;
 
     		sort(num.begin()+i+1, num.end());
-    		vector<int>::iterator k = num.begin();
-    		for(; k != num.end(); k++) cout << *k << endl;
     	}
     	else
     	{
