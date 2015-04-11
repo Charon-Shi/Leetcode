@@ -1,0 +1,44 @@
+class Solution {
+public:
+    int longestValidParentheses(string s)
+    {
+    	unsigned int Len = 0, temLen = 0;
+    	stack<int> Stack;
+    	vector<bool> vec;
+
+    	for(unsigned int i = 0; i < s.size(); i++) vec.push_back(false);
+    	for(unsigned int i = 0; i < s.size(); i++)
+    	{
+    		if(s[i] == '(') Stack.push(i);
+    		else
+    		{
+    			if(!Stack.empty())
+    			{
+    				vec[Stack.top()] = true;
+    				vec[i] = true;
+    				Stack.pop();
+    			}
+    		}
+    	}
+    	for(unsigned int i = 0; i < s.size();)
+    	{
+    		temLen = 0;
+
+    		for(vector<bool>::iterator it = vec.begin()+i; it < vec.end(); it++)
+    		{
+    			if(*it)
+    			{
+    				temLen++;
+    				i++;
+    			}
+    			else
+    			{
+    				i++;
+    				break;
+    			}
+    		}
+    		Len = max(temLen, Len);
+    	}
+    	return Len;
+    }
+};
