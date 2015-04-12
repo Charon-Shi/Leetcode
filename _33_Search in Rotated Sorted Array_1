@@ -1,0 +1,56 @@
+//My Algorithm involves two steps, To find the pivot first and then do binary search
+//This is not neat and clear eough so I will do another better one
+class Solution {
+public:
+	int findPivot(int A[], int L, int R)
+	{
+		if(R-L == 1)
+			return (A[L] > A[R])?(L):(R);
+		if(R == L)
+			return L;
+
+		if(A[(L+R)/2] > A[R])
+			return findPivot(A, (L+R)/2, R);
+		else
+			return findPivot(A, L, (L+R)/2 - 1);
+	}
+
+	int Bsearch(int A[], int L, int R, int target)
+	{
+		if(R == L)
+			return (A[R] == target)?(R):(-1);
+    	if(R == L+1)
+    	{
+    	    if(target == A[L])  return L;
+    	    else if(target == A[R])    return R;
+    	    else    return -1;
+    	}
+
+		if(A[(L+R)/2] == target)
+			return (L+R)/2;
+		else if(A[(L+R)/2] < target)
+			return Bsearch(A, (L+R)/2, R, target);
+		else
+			return Bsearch(A, L, (L+R)/2 - 1, target);
+	}
+
+    int search(int A[], int n, int target)
+    {
+        if(n == 1)
+    		return (target == A[0])?(0):(-1);
+    	if(n == 2)
+    	{
+    	    if(target == A[0])  return 0;
+    	    else if(target == A[1])    return 1;
+    	    else    return -1;
+    	}
+
+    	int pivot;
+    	if(A[0] > A[n-1])
+    		pivot = findPivot(A, 0, n-1);
+    	else
+    		return Bsearch(A, 0, n-1, target);
+
+    	return max(Bsearch(A, pivot+1, n-1, target), Bsearch(A, 0, pivot, target));
+    }
+};
