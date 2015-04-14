@@ -1,0 +1,41 @@
+class Solution {
+public:
+	void find(vector<int> &candidates, int target,
+			vector<vector<int> > &result, vector<int> temp, unsigned int start)
+	{
+		bool FirstTime = true;
+
+		for(unsigned int i = start; i < candidates.size(); i++)
+		{
+			if(!FirstTime)
+			{
+				temp.pop_back();
+				while(candidates[i] == candidates[i-1]) i++;
+			}
+			else
+				FirstTime = false;
+
+			if(target > candidates[i])
+			{
+				temp.push_back(candidates[i]);
+				find(candidates, target - candidates[i], result, temp, i+1);
+			}
+			else if(target == candidates[i])
+			{
+				temp.push_back(candidates[i]);
+				result.push_back(temp);
+				break;
+			}
+			else break;
+		}
+	}
+
+    vector<vector<int> > combinationSum2(vector<int> &candidates, int target)
+	{
+    	vector<vector<int> > result;
+    	vector<int> temp;
+    	sort(candidates.begin(), candidates.end());
+    	find(candidates, target, result, temp, 0);
+    	return result;
+    }
+};
