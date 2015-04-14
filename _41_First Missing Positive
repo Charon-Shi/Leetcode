@@ -1,0 +1,21 @@
+// simply using bucket sort with B[100000] is not perfect since the range of integer in A[] is not certain, although this 
+//program pass the test cases
+class Solution {
+public:
+    int firstMissingPositive(int A[], int n)
+    {
+    	unsigned int B[100000];
+
+    	for(int i = 0; i < 100000; i++) B[i] = 0;
+    	for(int i = 0; i < n; i++)
+    	{
+    		if(A[i] > 0) B[A[i]]++;
+    	}
+
+    	for(int i = 1; i <= n; i++)
+    	{
+    		if(B[i] == 0)
+    			return i;
+    	}
+    }
+};
