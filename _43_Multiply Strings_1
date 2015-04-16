@@ -1,0 +1,62 @@
+//too slow! Just emulation of the muplication. Need better solution
+class Solution {
+public:
+	map<char, int> hashMap;
+	string Multi(string &num, char c)
+	{
+		string result;
+		int temp, bit = 0;
+		for(int i = num.size()-1; i >= 0; i--)
+		{
+			temp = hashMap[num[i]] * hashMap[c];
+			result.insert(result.begin(), 48+(temp%10+bit)%10);
+			bit = (bit+temp)/10;
+		}
+		if(bit != 0) result.insert(result.begin(), 48+bit);
+
+		return result;
+	}
+
+	string Add(string num1, string num2)
+	{
+		string result;
+		int temp, bit = 0;
+
+		while(num1.size() < num2.size()) num1.insert(num1.begin(), '0');
+		while(num1.size() > num2.size()) num2.insert(num2.begin(), '0');
+
+		for(int i = num1.size()-1 ; i >= 0; i--)
+		{
+			temp = hashMap[num1[i]] + hashMap[num2[i]];
+			result.insert(result.begin(), 48+(temp%10+bit)%10);
+			bit = (bit+temp)/10;
+		}
+		if(bit != 0) result.insert(result.begin(), 48+bit);
+		return result;
+	}
+
+    string multiply(string num1, string num2)
+    {
+    	string result, temp;
+    	hashMap.insert(pair<char, int>('0', 0));
+    	hashMap.insert(pair<char, int>('1', 1));
+    	hashMap.insert(pair<char, int>('2', 2));
+    	hashMap.insert(pair<char, int>('3', 3));
+    	hashMap.insert(pair<char, int>('4', 4));
+    	hashMap.insert(pair<char, int>('5', 5));
+    	hashMap.insert(pair<char, int>('6', 6));
+    	hashMap.insert(pair<char, int>('7', 7));
+    	hashMap.insert(pair<char, int>('8', 8));
+    	hashMap.insert(pair<char, int>('9', 9));
+
+        if(num1 == "0" || num2 == "0") return "0";
+    	for(int n = num2.size()-1; n >= 0; n--)
+    	{
+    		temp = Multi(num1, num2[n]);
+    		for(int k = num2.size()-1; k > n; k--) temp.push_back('0');
+    		result = Add(result, temp);
+    	}
+
+    	return result;
+    }
+};
