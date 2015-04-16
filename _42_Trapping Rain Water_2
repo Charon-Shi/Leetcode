@@ -1,0 +1,28 @@
+// Actually I think this is DP solution. It counts rock first as summap and then count the total cell&rocks from left and right
+// at the same time.
+class Solution {
+public:
+    int trap(vector<int> &A) {
+        int summap = 0;
+        int sumtot = 0;
+
+        for(int i = 0; i < A.size(); i++) summap += A[i];
+
+        int left = 0, right = A.size() - 1;
+        int leftbar = 0, rightbar = 0;
+        while(left <= right) {
+            leftbar = max(A[left], leftbar);
+            rightbar = max(A[right], rightbar);
+
+            if(leftbar <= rightbar) {
+                sumtot += leftbar;
+                left++;
+            } else {
+                sumtot += rightbar;
+                right--;
+            }
+        }
+
+        return sumtot - summap;
+    }
+};
