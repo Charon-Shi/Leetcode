@@ -1,0 +1,44 @@
+class Solution {
+public:
+	inline void nextPermutation(vector<int> &num)
+	{
+		if(num.size() <= 1)	return;
+
+	    int temp, i = num.size()-2;
+	    map<int, int> hash_map;
+
+	    hash_map.insert(pair<int, int>(num[i+1], i+1));
+	    for(;num[i] >= num[i+1] && i >= 0 ; i--)
+	    	hash_map.insert(pair<int, int>(num[i], i));
+	    if(i != -1)
+	    {
+			map<int, int>::reverse_iterator it = hash_map.rbegin();
+			for(; it != hash_map.rend(); it++)
+				if(num[i] >= it->first)	break;
+
+			it--;
+			swap(num[i], num[it->second]);
+	   		sort(num.begin()+i+1, num.end());
+	   	}
+	    else sort(num.begin(), num.end());
+	}
+
+	vector<vector<int> > permuteUnique(vector<int> &num)
+	{
+		vector<vector<int> > result;
+
+		vector<int> temp = num;
+		result.push_back(num);
+		if(num.size() == 1) { return result; }
+		else
+		{
+			nextPermutation(temp);
+			while(temp != num)
+			{
+				result.push_back(temp);
+				nextPermutation(temp);
+			}
+		}
+		return result;
+	}
+};
