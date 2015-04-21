@@ -1,0 +1,16 @@
+//I solve this problem with extra space, can this problem be solved within matrix itself?
+class Solution {
+public:
+    void rotate(vector<vector<int> > &matrix)
+    {
+        vector<vector<int> > M = matrix;
+    	if(matrix.size() == 0 || matrix.size() == 1) return;
+
+    	for(int i = 0; i < matrix.size(); i++)
+    	{
+    		int j = matrix.size() - i - 1;
+    		for(int k = 0; k < matrix.size(); k++)
+    		    matrix[k][j] = M[i][k];
+    	}
+    }
+};
