@@ -1,0 +1,14 @@
+//one neat DP solution 
+class Solution {
+public:
+    bool canJump(vector<int>& nums)
+    {
+    	int maxRange = 0,i = 0;
+    	for(; i <= maxRange && i < nums.size(); i++)
+    	{
+    		if(nums[i]+i > maxRange) maxRange = nums[i]+i;
+    		if(maxRange >= nums.size()-1) return true;
+    	}
+    	return false;
+    }
+};
