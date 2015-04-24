@@ -1,37 +1,25 @@
-/** Bad solusion due to the sort of priority_que, need a better one
- * Definition for an interval.
- * struct Interval {
- *     int start;
- *     int end;
- *     Interval() : start(0), end(0) {}
- *     Interval(int s, int e) : start(s), end(e) {}
- * };
- */
 class Solution {
 public:
 	struct cmp
 	{
 	    bool operator ()(const Interval &a, const Interval &b)
 	    {
-	            return (a.start > b.start) ||
-	            		((a.start == b.start) && (a.end > b.end));
+	            return (a.start < b.start) ||
+	            		((a.start == b.start) && (a.end < b.end));
 	    }
 	};
 
 	vector<Interval> merge(vector<Interval>& intervals)
     {
-		priority_queue<Interval, vector<Interval>, cmp> que;
 		vector<Interval> result;
 		Interval temp, res;
-
-		if(intervals.size() == 0) return result;
-		for(unsigned int i = 0; i < intervals.size(); i++)
-			que.push(intervals[i]);
-
-		res = que.top(), que.pop();
-		while(!que.empty())
+    
+        if(intervals.size() == 0) return result;
+		sort(intervals.begin(), intervals.end(), cmp());
+		res = intervals[0];
+		for(unsigned int i = 1; i < intervals.size(); i++)
 		{
-			temp = que.top(), que.pop();
+			temp = intervals[i];
 			if(temp.start <= res.end)
 			{
 				res.start = min(temp.start, res.start);
