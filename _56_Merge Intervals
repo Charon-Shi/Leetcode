@@ -1,0 +1,46 @@
+/**
+ * Definition for an interval.
+ * struct Interval {
+ *     int start;
+ *     int end;
+ *     Interval() : start(0), end(0) {}
+ *     Interval(int s, int e) : start(s), end(e) {}
+ * };
+ */
+class Solution {
+public:
+	struct cmp
+	{
+	    bool operator ()(const Interval &a, const Interval &b)
+	    {
+	            return (a.start > b.start) ||
+	            		((a.start == b.start) && (a.end > b.end));
+	    }
+	};
+
+	vector<Interval> merge(vector<Interval>& intervals)
+    {
+		priority_queue<Interval, vector<Interval>, cmp> que;
+		vector<Interval> result;
+		Interval temp, res;
+
+		if(intervals.size() == 0) return result;
+		for(unsigned int i = 0; i < intervals.size(); i++)
+			que.push(intervals[i]);
+
+		res = que.top(), que.pop();
+		while(!que.empty())
+		{
+			temp = que.top(), que.pop();
+			if(temp.start <= res.end)
+			{
+				res.start = min(temp.start, res.start);
+				res.end = max(temp.end, res.end);
+			}
+			else
+				result.push_back(res), res = temp;
+		}
+		result.push_back(res);
+		return result;
+    }
+};
