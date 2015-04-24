@@ -1,4 +1,4 @@
-/**
+/** Bad solusion due to the sort of priority_que, need a better one
  * Definition for an interval.
  * struct Interval {
  *     int start;
