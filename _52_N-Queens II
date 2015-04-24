@@ -1,0 +1,41 @@
+class Solution {
+public:
+	void find(int n, queue<int> Table, vector<string> &result, int &final)
+	{
+		if(Table.size() == 0) { final++; return; }
+
+		bool legal; int tmp;
+		for(int i = 0; i < Table.size(); i++)
+		{
+			legal = true;
+			for(int j = n-Table.size()-1, k = Table.front()-1; j >= 0 && k >= 0; j--,k--)
+				if(result[j][k] == 'Q')	{ legal = false; break; }
+			for(int j = n-Table.size()-1, k = Table.front()+1; j >= 0 && k < n; j--,k++)
+							if(result[j][k] == 'Q')	{ legal = false; break; }
+			if(legal)
+			{
+				result[n-Table.size()][tmp = Table.front()] = 'Q';
+				Table.pop();
+				find(n, Table, result, final);
+				Table.push(tmp);
+				result[n-Table.size()][tmp] = '.';
+			}
+			else{ tmp = Table.front(); Table.pop(); Table.push(tmp); }
+		}
+	}
+
+    int totalNQueens(int n)
+	{
+    	int final = 0;
+    	vector<string> result;
+    	queue<int> Table;
+    	if(n == 0) return final;
+
+    	string temp;
+    	for(int i = 0; i < n; i++) { temp.push_back('.'); Table.push(i); }
+    	for(int i = 0; i < n; i++)	result.push_back(temp);
+    	find(n, Table, result, final);
+
+    	return final;
+	}
+};
