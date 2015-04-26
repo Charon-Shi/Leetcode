@@ -1,0 +1,13 @@
+//combination
+class Solution {
+public:
+    int uniquePaths(int m, int n) 
+    {
+        int Min = min(m-1, n-1), sum = m+n-2;
+        long double result = 1;
+        for(int i = sum; i >sum - Min; i--) result *= i;
+        for(int i = Min; i > 1; i--) result /= i;
+        
+        return (int)result;
+    }
+};
