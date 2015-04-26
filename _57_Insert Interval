@@ -1,0 +1,25 @@
+class Solution {
+public:
+  std::vector<Interval> insert(std::vector<Interval> &intervals, Interval newInterval) 
+  {
+    	int i, j, Begin = newInterval.start, End = newInterval.end;
+    	for(i = 0; i < intervals.size(); i++) //find Begin position
+    	{
+    		if(intervals[i].start <= newInterval.start && newInterval.start <= intervals[i].end)
+    		{ Begin = intervals[i].start; break; }
+    		else if(intervals[i].start >= newInterval.start) break;
+    	}
+
+    	for(j = i; j < intervals.size(); j++) //find End position
+    	{
+    		if(intervals[j].start <= newInterval.end && newInterval.end <= intervals[j].end)
+    		{ End = intervals[j].end; break; }
+    		else if(intervals[j].start > newInterval.end) { j--; break; }
+    		else if(j == intervals.size()-1) break;
+    	}
+    	if(intervals.size() != 0 && i < intervals.size()) intervals.erase(intervals.begin()+i, intervals.begin()+j+1);
+    	Interval element(Begin, End);
+    	intervals.insert(intervals.begin()+i, element);
+    	return intervals;
+    }
+};
