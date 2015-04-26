@@ -1,0 +1,24 @@
+//DP
+class Solution {
+public:
+    int uniquePathsWithObstacles(vector<vector<int> > &obstacleGrid)
+    {
+        vector<vector<unsigned int> > result(obstacleGrid.size(),
+                                             vector<unsigned int>(obstacleGrid[0].size()));
+        for ( unsigned int i = 0; i < obstacleGrid.size(); i++){
+            for ( unsigned int j = 0; j < obstacleGrid[i].size(); j++){
+                if (i == 0 && j == 0)
+                    result[i][j] = (obstacleGrid[i][j] == 0);
+                else if (i == 0)
+                    result[i][j] = result[i][j-1] * (obstacleGrid[i][j] == 0);
+                else if (j == 0)
+                    result[i][j] = result[i-1][j] * (obstacleGrid[i][j] == 0);
+                else{
+                    result[i][j] = result[i][j-1] * (obstacleGrid[i][j] == 0) +
+                        result[i-1][j] * (obstacleGrid[i][j] == 0);
+                }
+            }
+        }
+        return result[obstacleGrid.size()-1][obstacleGrid[0].size()-1];
+    }
+};
