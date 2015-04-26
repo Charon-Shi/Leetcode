@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int minPathSum(vector<vector<int> > &Grid){
+        vector<vector<unsigned int> > result(Grid.size(),
+                                             vector<unsigned int>(Grid[0].size()));
+        for ( unsigned int i = 0; i < Grid.size(); i++){
+            for ( unsigned int j = 0; j < Grid[i].size(); j++){
+                if (i == 0 && j == 0)
+                    result[i][j] = Grid[i][j];
+                else if (i == 0)
+                    result[i][j] = result[i][j-1] + Grid[i][j];
+                else if (j == 0)
+                    result[i][j] = result[i-1][j] + Grid[i][j];
+                else
+                    result[i][j] = min(result[i][j-1], result[i-1][j]) + Grid[i][j];
+            }
+        }
+        return result[Grid.size()-1][Grid[0].size()-1];
+        
+    }
+};
