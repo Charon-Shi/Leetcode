@@ -1,0 +1,29 @@
+class Solution {
+public:
+    inline string next(string &s){
+        int i = 0;
+        while(i < s.size() && s[i] != '/') i++;
+        string result(s, 0, i+1);
+        s.erase(s.begin(), s.begin()+i+1);
+        return result;
+    }
+    string simplifyPath(string path) {
+        string Stack,temp;
+        
+        Stack.push_back('/');
+        if (path[path.size()-1] != '/') path.push_back('/');
+        while (!path.empty()) {
+            temp = next(path);
+            if (temp == "../")
+            {
+                if (Stack.size() > 1 && Stack.back() == '/') Stack.pop_back();
+                while (Stack.back() != '/') Stack.pop_back();
+            }
+            else if ((temp == "./") || (temp == "/" && Stack.back() == '/'));
+            else { for(int i = 0; i < temp.size(); i++) Stack.push_back(temp[i]); }
+        }
+        
+        if (Stack.size() > 1 && Stack.back() == '/') Stack.pop_back();
+        return Stack;
+    }
+};
