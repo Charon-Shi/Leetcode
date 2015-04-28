@@ -1,0 +1,32 @@
+class Solution {
+public:
+    void sortColors(int A[], int n) {
+        int Zero = 0, Two = n - 1, temp;
+        for (int i = 0; i <= Two; ) {
+            if (A[i] == 1) {
+                if (A[Two] == 0) {
+                    temp = A[i];
+                    A[i] = A[Two];
+                    A[Two] = temp;
+                }
+                else i++;
+            }
+            else if (A[i] == 0) {
+                if (i != Zero) {
+                    temp = A[i];
+                    A[i] = A[Zero];
+                    A[Zero++] = temp;
+                }
+                else i++;
+            }
+            else if (A[i] == 2) {
+                if (i != Two) {
+                    temp = A[i];
+                    A[i] = A[Two];
+                    A[Two--] = temp;
+                }
+                else i++;
+            }
+        }
+    }
+};
