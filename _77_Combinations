@@ -1,0 +1,32 @@
+class Solution {
+public:
+    inline int OneCount(int x)
+    {
+        int count = 0;
+        while (x > 0) {
+            if (x%2 == 1) count++;
+            x /= 2;
+        }
+        return count;
+    }
+    
+    vector<vector<int> > combine(int n, int k) {
+        int x = (int)pow(2.0, n) - 1, t;
+        vector<int> temp;
+        vector<vector<int> > result;
+        
+        while (x >= 0) {
+            if ( OneCount(x) == k) {
+                t = x;
+                for (int j = n; j > 0; j--) {
+                    if (t%2 == 1) temp.insert(temp.begin(), j);
+                    t /= 2;
+                }
+                result.push_back(temp);
+                temp.clear();
+            }
+            x--;
+        }
+        return result;
+    }
+};
