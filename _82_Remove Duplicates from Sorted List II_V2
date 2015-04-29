@@ -1,0 +1,23 @@
+//Non-recursive version
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        ListNode* Mid = head, *Pre = new ListNode(0), *Newhead = Pre;
+        int Number;
+        
+        Pre->next = head;
+        while (Mid && Mid->next) {
+            if (Mid->val == Mid->next->val) {
+                Number = Mid->val;
+                Mid = Mid->next->next; // this line saves 13 ms lol~!
+                while (Mid && Mid->val == Number) Mid = Mid->next;
+                Pre->next = Mid;
+            }
+            else {
+                Pre = Mid;
+                Mid = Mid->next;
+            }
+        }
+        return Newhead->next;
+    }
+};
