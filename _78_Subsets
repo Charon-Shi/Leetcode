@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<vector<int> > subsets(vector<int> &S) {
+        int x = 0, t, Max = (int)pow(2.0, S.size()) - 1;
+        vector<int> temp;
+        vector<vector<int> > result;
+        
+        sort(S.begin(), S.end());
+        while (x <= Max) {
+            t = x;
+            for (int j = S.size()-1; j >= 0; j--) {
+                if (t%2 == 1) temp.insert(temp.begin(), S[j]);
+                t /= 2;
+            }
+            result.push_back(temp);
+            temp.clear();
+            x++;
+        }
+        return result;
+    }
+};
