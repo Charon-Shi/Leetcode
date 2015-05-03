@@ -1,0 +1,18 @@
+class Solution {
+public:
+    ListNode* partition(ListNode* head, int x) {
+        ListNode *Head = NULL, *Tail = NULL, *H = NULL, *T = NULL;
+        ListNode **Current;
+        Head = new ListNode(0), H = Head;
+        Tail = new ListNode(0), T= Tail;
+        while(head) {
+            (head->val < x)?(Current = &Head):(Current = &Tail);
+            (*Current)->next = head;
+            head = head->next;
+            (*Current) = (*Current)->next;
+            (*Current)->next = NULL;
+        }
+        Head->next = T->next;
+        return H->next;
+    }
+};
