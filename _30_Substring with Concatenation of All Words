@@ -1,0 +1,35 @@
+class Solution {
+public:
+     vector<int> findSubstring(string S, vector<string>& L)
+    {// this algorithm is to use Slidding Window to solve this problem
+        unordered_map<string, int> Table, Temp; //Table used for words in L, Temp used for words in S
+        vector<int> result;
+        int Word = L[0].size(), Block = L.size()*Word, Start = 0;
+        
+        for (unsigned int i = 0; i < L.size(); i++) Table[L[i]]++; //count numbers of words in L 
+        
+        for (unsigned int k = 0; k < Word; k++) {// this loop is used for different Start position
+            Temp.clear();                        // in order to omit potential results
+            Start = k;
+            for (unsigned int i = k; Start + Block <= S.size(); ) {//finding answer from K
+                string sub = S.substr(i, Word);
+                if (i-Start == Block) result.push_back(Start);  //find one answer
+                if (Table.count(sub) == 0) { Start = (i += Word); Temp.clear(); }//sub do not exists  
+                else if (Table[sub] > Temp[sub]) { Temp[sub]++; i += Word; }//sub exists
+                else {//sub exist but more than its numbers in Table,so windows will slide 
+                    string TempSub;
+                    for (unsigned int j = Start; 1; j += Word) {
+                        TempSub = S.substr(j, Word);
+                        if (TempSub == sub) {
+                            Start = j+Word;
+                            i += Word;
+                            break;
+                        }
+                        else Temp[TempSub]--;
+                    }
+                }
+            }
+        }
+        return result;
+    }
+};
