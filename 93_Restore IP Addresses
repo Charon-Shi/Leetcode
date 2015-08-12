@@ -1,0 +1,29 @@
+class Solution {
+private:
+    vector<string> ans;
+public:
+    void search(string done, string todo, int dot) {
+        if (todo.length() > 12) return;
+        if (3 == dot) {
+            if (todo.length() > 1 && todo[0] == '0') return;
+            if (!todo.empty() && stoi(todo, nullptr) <= 255) {
+                ans.push_back(done.substr(1) + "." + todo);
+                cout << done.substr(1) + "." + todo << endl;
+            }
+            return;
+        }
+        else{
+            if (todo.length() > 0 && (todo.length()-1)/(3-dot) <= 3)
+                search(done + "." + todo.substr(0, 1), todo.substr(1), dot+1);
+            if (todo.length() > 1 && (todo.length()-2)/(3-dot) <= 3 && todo[0] != '0')
+                search(done + "." + todo.substr(0, 2), todo.substr(2), dot+1);
+            if (todo.length() > 2 && todo[0] != '0' && stoi(todo.substr(0, 3), nullptr) <= 255)
+                search(done + "." + todo.substr(0, 3), todo.substr(3), dot+1);
+        }
+    }
+    
+    vector<string> restoreIpAddresses(string s) {
+        search("", s, 0);
+        return ans;
+    }
+};
