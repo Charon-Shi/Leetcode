@@ -1,0 +1,13 @@
+class Solution {
+public:
+    bool isBST(TreeNode* root, double Min, double Max, int time) {
+        if (root == NULL) 
+            return true;
+        else 
+            return (Min < Max) && (root->val > Min) && (root->val < Max) && (isBST(root->left, Min, root->val, time++)) && (isBST(root->right, root->val, Max, time++));
+    }
+    
+    bool isValidBST(TreeNode* root) {
+        return isBST(root, (double)INT_MIN-1, (double)INT_MAX+1, 1) ;
+    }
+};
