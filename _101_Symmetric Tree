@@ -1,0 +1,13 @@
+class Solution {
+public:
+    bool isSym(TreeNode *p, TreeNode *q) {
+        if(!p && !q) return true;
+        else if(!p || !q) return false;
+        else return (p->val == q->val) && isSym(p->left, q->right) && isSym(p->right, q->left);
+    }
+    
+    bool isSymmetric(TreeNode* root) {
+        if (!root) return true;
+        else return isSym(root->left, root->right);
+    }
+};
