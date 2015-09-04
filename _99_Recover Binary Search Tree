@@ -1,0 +1,21 @@
+class Solution {
+private:
+    vector<int> vec;
+     vector<TreeNode*> Vec;
+public:
+    void InorderSearch(TreeNode *root) {
+        if (root->left) InorderSearch(root->left);
+        vec.push_back(root->val);
+        Vec.push_back(root);
+        if (root->right) InorderSearch(root->right);
+    }
+    
+    void recoverTree(TreeNode* root) {
+        InorderSearch(root);
+        
+        sort(vec.begin(), vec.end());
+        for (int i = 0; i < Vec.size(); i++) {
+            if (Vec[i]->val != vec[i])  Vec[i]->val = vec[i];
+        }
+    }
+};
