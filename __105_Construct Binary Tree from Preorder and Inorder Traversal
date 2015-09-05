@@ -1,0 +1,24 @@
+class Solution {
+public:
+    TreeNode* Build(vector<int>& preorder, unsigned long begin, unsigned long end, vector<int>& inorder, unsigned long _begin, unsigned long _end) {
+        unsigned long root = 0;
+        TreeNode * _root;
+        
+        for (unsigned long i = _begin; i <= _end; i++)
+            if (inorder[i] == preorder[begin])  { root = i; break; }
+        
+        _root = new struct TreeNode(preorder[begin]);
+        if (root > _begin)
+            _root->left = Build(preorder, begin+1, begin + root - _begin, inorder, _begin, root-1);
+        
+        if (root < _end)
+            _root->right = Build(preorder, begin + root - _begin + 1, end, inorder, root+1, _end);
+        
+        return _root;
+    }
+    
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        if (preorder.empty() && inorder.empty())    return NULL;
+        else return Build(preorder, 0, preorder.size()-1, inorder, 0, inorder.size()-1);
+    }
+};
