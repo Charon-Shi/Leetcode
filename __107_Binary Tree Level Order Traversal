@@ -1,6 +1,6 @@
 class Solution {
 public:
-    vector<vector<int>> levelOrder(TreeNode* root) {
+    vector<vector<int>> levelOrderBottom(TreeNode* root) {
         vector<vector<int>> result;
         vector<int> vec;
         queue<TreeNode*> value;
@@ -11,6 +11,7 @@ public:
         if(!root) return result;
         value.push(root);
         level.push(0);
+        result.push_back(vec);
         while(!value.empty()) {
             tmp = value.front();
             value.pop();
@@ -18,8 +19,8 @@ public:
             curLvl = level.front();
             level.pop();
             
-            if(result.size() < curLvl+1)    result.push_back(vec);
-            result[curLvl].push_back(tmp->val);
+            if(result.size() < curLvl+1)    result.insert(result.begin(), vec);
+            result[0].push_back(tmp->val);
             
             if(tmp->left)   { value.push(tmp->left); level.push(curLvl + 1); }
             if(tmp->right)  { value.push(tmp->right);level.push(curLvl + 1); }
