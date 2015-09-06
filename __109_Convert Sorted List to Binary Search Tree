@@ -1,0 +1,19 @@
+class Solution {
+public:
+    TreeNode* Sorted(vector<ListNode*>& vec, unsigned long begin, unsigned long end) {
+        unsigned long mid = (begin+end+1)/2;
+        TreeNode *root = new struct TreeNode(vec[mid]->val);
+        
+        if (vec[mid]->val > vec[begin]->val) root->left = Sorted(vec, begin, mid-1);
+        if (vec[mid]->val < vec[end]->val) root->right = Sorted(vec, mid+1, end);
+        return root;
+    }
+    
+    TreeNode* sortedListToBST(ListNode* head) {
+        if(!head) return NULL;
+        vector<ListNode*> vec;
+        
+        for (ListNode *tmp = head; tmp != NULL; tmp=tmp->next) vec.push_back(tmp);
+        return Sorted(vec, 0, vec.size()-1);
+    }
+};
