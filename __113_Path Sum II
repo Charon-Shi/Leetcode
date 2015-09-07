@@ -1,0 +1,38 @@
+ */
+class Solution {
+private:
+    vector<vector<int>> result;
+public:
+    void find(TreeNode *root, vector<int>& vec, int lack) {
+        if(!root->left && !root->right) {
+            if(root->val == lack) {
+                vec.push_back(lack);
+                result.push_back(vec);
+                vec.pop_back();
+            }
+        }
+        else if(!root->left) {
+            vec.push_back(root->val);
+            find(root->right, vec, lack-root->val);
+            vec.pop_back();
+        }
+        else if(!root->right) {
+            vec.push_back(root->val);
+            find(root->left, vec, lack-root->val);
+            vec.pop_back();
+        }
+        else {
+            vec.push_back(root->val);
+            find(root->left, vec, lack-root->val);
+            find(root->right, vec, lack-root->val);
+            vec.pop_back();
+        }
+    }
+    
+    vector<vector<int>> pathSum(TreeNode* root, int sum) {
+        if(!root) return result;
+        vector<int> vec;
+        find(root, vec, sum);
+        return result;
+    }
+};
