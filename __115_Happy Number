@@ -1,0 +1,16 @@
+class Solution {
+//4, 16, 37, 58, 89, 145, 42, 20, 4
+public:
+    bool isHappy(int n) {
+        unordered_map<int,int> mymap = { {4,1}, {16,1}, {37,1}, {58,1}, {89,1}, {145,1}, {42,1}, {20,1} };
+        
+        if(!n) return false;
+        
+        int sum = 0, tmp = n;
+        for(;tmp > 1 && mymap.find (tmp) == mymap.end(); tmp = sum, sum = 0) {
+            for (int i = tmp; i > 0; i/=10)  sum += (i%10) * (i%10);
+        }
+        
+        return (mymap.find (tmp) == mymap.end()) ? true : false;
+    }
+};
