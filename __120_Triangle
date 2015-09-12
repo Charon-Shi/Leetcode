@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int minimumTotal(vector<vector<int>>& triangle) {
+        vector<vector<int>> result;
+        vector<int> vec;
+        vec.push_back(triangle[0][0]);
+        result.push_back(vec);
+        
+        for(int i = 0; i < triangle.size()-1; i++) {
+            vec.clear();
+            vec.push_back(triangle[i+1][0] + result[i][0]);
+            for(int j = 1; j <= triangle[i].size(); j++) {
+                if(j == triangle[i].size()) vec.push_back(triangle[i+1][j] + result[i][j-1]);
+                else vec.push_back(triangle[i+1][j] + min(result[i][j-1], result[i][j]));
+            }
+            result.push_back(vec);
+        }
+        
+        int min = INT_MAX;
+        for(int i = 0; i < result[result.size()-1].size(); i++) {
+            if(result[result.size()-1][i] < min) min = result[result.size()-1][i];
+        }
+        
+        return min;
+    }
+    
+};
