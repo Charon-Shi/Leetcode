@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        if(prices.empty()) return 0;
+        
+        vector<int> preMax, postMax;
+        int Min = prices[0];
+        
+        preMax.push_back(0);
+        for(int i = 1; i < prices.size(); i++) {
+            Min = min(prices[i], Min);
+            preMax.push_back(max(prices[i]-Min, preMax[i-1]));
+        }
+        
+        int Max = prices[prices.size()-1];
+        postMax.push_back(0);
+        for(int i = prices.size()-2; i > -1; i--) {
+            Max = max(prices[i], Max);
+            postMax.insert(postMax.begin(), max(Max-prices[i], postMax[0]));
+        }
+        
+        int result = preMax[0] + postMax[0];
+        for(int i = 1; i < prices.size(); i++)
+            result = max(result, preMax[i] + postMax[i]);
+        
+        return result;
+    }
+};
