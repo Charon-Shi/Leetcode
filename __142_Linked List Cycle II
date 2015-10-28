@@ -1,0 +1,56 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* detectCycle(ListNode *head) {
+        if(!head) return NULL;
+        int count = 0, count1 = 1, count2 = 2;
+        ListNode *pre = head, *nxt = head->next;
+        
+        do
+        {
+            if(nxt) {
+                nxt = nxt->next;
+                count2++;
+            }
+            else
+                return NULL;
+            
+            if(nxt) {
+                nxt = nxt->next;
+                count2++;
+            }
+            else
+                return NULL;
+                
+            pre = pre->next;
+            count1++;
+            
+            if(nxt == pre) {
+                break;
+            }
+        }while(nxt);
+        
+        if(!nxt) return NULL;
+        
+        pre = head;
+        nxt = head;
+        while(count < count2-count1) {
+            nxt = nxt->next;
+            count++;
+        }
+        
+        while(pre!=nxt) {
+            pre = pre->next;
+            nxt = nxt->next;
+        }
+        
+        return pre;
+    }
+};
