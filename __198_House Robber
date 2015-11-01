@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        if(!nums.size()) return 0;
+        
+        vector<bool> rob;
+        rob.push_back(true);
+        int result = nums[0];
+        int pre = 0, pre_copy;
+        
+        for(int i = 1; i < nums.size(); i++) {
+            if(rob[i-1]) {
+                if(result < pre + nums[i]) {
+                    rob[i-1] = false;
+                    rob.push_back(true);
+                    pre_copy = pre;
+                    pre = result;
+                    result = pre_copy + nums[i];
+                }
+                else {
+                    rob.push_back(false);
+                }
+            }
+            else {
+                rob.push_back(true);
+                pre_copy = pre;
+                pre = result;
+                result = result + nums[i];
+            }
+        }
+        return result;
+    }
+};
