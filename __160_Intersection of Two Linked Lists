@@ -1,0 +1,27 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        ListNode *pA = headA, *pB = headB;
+        int TimeA = 1, TimeB = 1;
+        while(pA && pB) {
+            if(pA==pB) return pA;
+            
+            if(pA->next) pA = pA->next;
+            else if(TimeA--) pA = headB;
+            else break;
+            
+            if(pB->next) pB = pB->next;
+            else if(TimeB--) pB = headA;
+            else break;
+        }
+        return NULL;
+    }
+};
