@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int computeArea(int A, int B, int C, int D, int E, int F, int G, int H) {
+        int width, height, mutual, one = abs(C-A)*abs(D-B), two = abs(G-E)*abs(H-F);
+        
+        if(A >= G || C <= E)
+            return one+two;
+        else 
+            width = min(C,G)-max(A, E);
+        
+        if(B >= H || D <= F)
+            return one+two;
+        else
+            height = min(D,H)-max(F,B);
+         
+        mutual = width*height;
+        
+        if(mutual == one || mutual == two)
+            return max(one, two);
+            
+        return one+two-mutual;
+    }
+};
