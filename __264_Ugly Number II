@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int nthUglyNumber(int n) {
+        vector<int> Unum;
+        Unum.push_back(1);
+        
+        int i2 = 0, i3 = 0, i5 = 0;
+        int temp = 1;
+        for(int i = 1; i < n; i++) {
+            temp = min(2*Unum[i2], min(3*Unum[i3], 5*Unum[i5]));
+            Unum.push_back(temp);
+            if(temp == 2*Unum[i2]) i2++;
+            if(temp == 3*Unum[i3]) i3++;
+            if(temp == 5*Unum[i5]) i5++;
+        }
+        
+        return Unum[n-1];
+    }
+};
