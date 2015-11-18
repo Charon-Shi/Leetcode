@@ -1,0 +1,22 @@
+// Forward declaration of isBadVersion API.
+bool isBadVersion(int version);
+
+class Solution {
+public:
+    int find(long long a, long long b) {
+        long long begin = a, end = b;
+        bool MiddleIsBad;
+        
+        while(end-begin > 1) {
+            MiddleIsBad = isBadVersion((begin+end)/2);
+            if(MiddleIsBad) end = (begin+end)/2;
+            else    begin = (begin+end)/2+1;
+        }
+        
+        int result = (isBadVersion(begin)) ? (begin) : (end);
+        return result;
+    }
+    int firstBadVersion(int n) {
+        return find(1,n);
+    }
+};
