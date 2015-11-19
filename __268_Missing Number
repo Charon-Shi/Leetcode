@@ -1,0 +1,9 @@
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        long result = 0;
+        for(int c: nums)    result += c;
+        
+        return nums.size()*(1+nums.size())/2 - result;
+    }
+};
