@@ -1,0 +1,33 @@
+class Solution {
+public:
+    vector<vector<int> > result;
+    void DFS(int resSum, int depth, int pre, int sum, vector<int>& temp) {
+        if(temp.size() < depth-1) {
+            for(int i = pre; i <= 9; i++) {
+                if(resSum+i < sum) {
+                    temp.push_back(i);
+                    DFS(resSum+i, depth, 1+i, sum, temp);
+                    temp.pop_back();
+                }
+                else
+                    break;
+            }
+        }
+        else {
+            for(int i = pre; i <= 9; i++) {
+                if(resSum+i == sum) {
+                    temp.push_back(i);
+                    result.push_back(temp);
+                    temp.pop_back();
+                    break;
+                }
+            }
+        }
+    }
+    
+    vector<vector<int>> combinationSum3(int k, int n) {
+        vector<int> temp;
+        DFS(0, k, 1, n, temp);
+        return result;
+    }
+};
