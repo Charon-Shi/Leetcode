@@ -1,0 +1,25 @@
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        return find(matrix, 0, matrix.size()-1, 0, matrix[0].size()-1, target);
+    }
+    
+    bool find(vector<vector<int>>& matrix, int rowStart, int rowEnd, int colStart, int colEnd, int target) {
+        if(rowStart > rowEnd || colStart > colEnd)
+            return false;
+        
+        int MidX = (rowStart + rowEnd)/2;
+        int MidY = (colStart + colEnd)/2;
+        
+        if(target == matrix[MidX][MidY])
+            return true;
+        else if(target > matrix[MidX][MidY]) {
+            return  find(matrix, MidX+1, rowEnd, colStart, colEnd, target) ||
+                    find(matrix, rowStart, MidX, MidY+1, colEnd, target);
+        }
+        else {
+            return find(matrix, rowStart, MidX-1, colStart, colEnd, target) || 
+                    find(matrix, MidX, rowEnd, colStart, MidY-1, target);
+        }
+    }
+};
