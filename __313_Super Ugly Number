@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int nthSuperUglyNumber(int n, vector<int>& primes) {
+        vector<int> que;
+        vector<int> vec(primes.size(), 0);
+        
+        que.push_back(1);
+        int tmp, mins, sub = 0;
+
+        for(int i = 1; i < n; ) {
+            tmp = primes[0] * que[vec[0]];
+            mins = tmp;
+            sub = 0;
+            
+            for(int j = 1; j < vec.size(); j++) {
+                tmp = min(mins, primes[j] * que[vec[j]]);
+                if(tmp < mins) {
+                    sub = j;
+                    mins = tmp;
+                }
+            }
+            
+            if(mins > que[i-1]) {
+                que.push_back(mins);
+                i++;
+            }
+            vec[sub]++;
+        }
+        
+        return que[n-1];
+    }
+};
