@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int maxProduct(vector<string>& words) {
+        vector<long> dic(words.size(), 0);
+        int ans = 0;
+        
+        for(int i = 0; i < words.size(); i++) {
+            for(int j = 0; j < words[i].size(); j++) {
+                dic[i] = dic[i] | 1<<(int)(words[i][j] - 'a');
+            }
+        }
+        
+        for(int i = 0; i < words.size(); i++) {
+            for(int j = i; j < words.size(); j++) {
+                if( (dic[i] & dic[j]) == 0) {
+                    if( ans < words[i].size()*words[j].size() )
+                        ans = words[i].size()*words[j].size();
+                }
+            }
+        }
+        
+        return ans;
+    }
+};
