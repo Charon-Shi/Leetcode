@@ -1,0 +1,21 @@
+class Solution {
+    // buy vector means the maximum profit when the last action before(include) ith day is buying
+    // sell vector means the maximum profit when the last action before(include) ith day is selling
+    // rest vector means the maximum profit when the last action before(include) ith day is rest
+public:
+    int maxProfit(vector<int>& prices) {
+        if(prices.size() < 2)  return 0;
+        
+        vector<int> buy(prices.size(), -1*prices[0]);
+        vector<int> sell(prices.size(), 0);
+        vector<int> rest(prices.size(), 0);
+        
+        for(int i = 1; i < prices.size(); i++) {
+            rest[i] = sell[i-1];
+            buy[i] = max(buy[i-1], rest[i-1] - prices[i]);
+            sell[i] = max(buy[i-1] + prices[i], sell[i-1]);
+        }
+        
+        return sell[prices.size()-1];
+    }
+};
