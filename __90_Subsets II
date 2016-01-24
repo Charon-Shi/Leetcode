@@ -1,0 +1,29 @@
+class Solution {
+public:
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        vector<vector<int>> ans;
+        vector<int> current;
+        
+        if(!nums.size()) return ans;
+        
+        sort(nums.begin(), nums.end());
+        ans.push_back(current);
+        generate(ans, current, nums, 0);
+        
+        return ans;
+    }
+    
+    void generate(vector<vector<int>> &ans, vector<int> &current, vector<int> &nums, int step) {
+        
+        for(int i = step; i < nums.size(); i++) {
+            current.push_back(nums[i]);
+            ans.push_back(current);
+            if(i < nums.size()-1)
+                generate(ans, current, nums, i+1);
+            
+            current.pop_back();
+            while(i < nums.size()-1 && nums[i]==nums[i+1])
+                i++;
+        }
+    }
+};
